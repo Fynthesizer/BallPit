@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{ab297cf6-11b5-4b16-9ae3-1483ab1181e2}">
+		<property name="name">
+			<value>Radius</value>
+		</property>
+		<relationship name="folder">
+			<destination>{f4131a55-df36-41bf-8c3a-2497f865d140}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{4eb0b47f-c3a3-4608-9713-5aaf8cd3329d}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{4eb0b47f-c3a3-4608-9713-5aaf8cd3329d}">
+		<property name="maximum">
+			<value>5</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
