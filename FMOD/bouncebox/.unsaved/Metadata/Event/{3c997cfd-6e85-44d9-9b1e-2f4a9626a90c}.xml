@@ -166,11 +166,7 @@
 			<destination>{f07f90d8-f732-40de-aacc-d62de150e986}</destination>
 		</relationship>
 	</object>
-	<object class="MultiSound" id="{f3c5719d-a72d-4f2a-8303-618a5828adea}">
-		<relationship name="sounds">
-			<destination>{0718e146-bdbc-454e-92a6-423c5e293459}</destination>
-		</relationship>
-	</object>
+	<object class="MultiSound" id="{f3c5719d-a72d-4f2a-8303-618a5828adea}" />
 	<object class="MixerBusEffectChain" id="{4bf4cfbc-be45-4d5f-9c71-8f1acb4e4a60}">
 		<relationship name="effects">
 			<destination>{e69b14c7-f3cf-4f00-80fb-401956d8432f}</destination>
@@ -332,15 +328,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{9cec1e62-5d5b-496f-8205-83e9d7aa362c}" />
-	<object class="EventSound" id="{0718e146-bdbc-454e-92a6-423c5e293459}">
-		<property name="name" />
-		<relationship name="parameters">
-			<destination>{07c8ed41-74a7-48ca-8f8c-3c42b11d992f}</destination>
-		</relationship>
-		<relationship name="event">
-			<destination>{f97a2ad6-280a-4bf9-8aac-e372774f8848}</destination>
-		</relationship>
-	</object>
 	<object class="MixerBusFader" id="{e69b14c7-f3cf-4f00-80fb-401956d8432f}" />
 	<object class="Automator" id="{b74edaba-2650-4230-b491-aa1ee3b7b97b}">
 		<property name="nameOfPropertyBeingAutomated">
@@ -454,11 +441,6 @@
 		</property>
 		<relationship name="mixerReturn">
 			<destination>{4f93357b-4af7-45bf-b02b-6dc6be26f52f}</destination>
-		</relationship>
-	</object>
-	<object class="ParameterProperty" id="{07c8ed41-74a7-48ca-8f8c-3c42b11d992f}">
-		<relationship name="parameter">
-			<destination>{6acf6f64-883d-4066-b9c9-08ab500a3079}</destination>
 		</relationship>
 	</object>
 	<object class="AutomationCurve" id="{3458cf98-a843-4bc9-90b2-b192e2057571}">

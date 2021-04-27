@@ -52,7 +52,9 @@ public class controller : MonoBehaviour
         gyroEnabled = EnableGyro();
 
         pitchUI = GameObject.FindGameObjectWithTag("CurrentPitch").GetComponent<Text>();
-        sizeUI = GameObject.FindGameObjectWithTag("CurrentSize").GetComponent<Image>();
+        if (GameObject.FindGameObjectWithTag("CurrentSize")){
+            sizeUI = GameObject.FindGameObjectWithTag("CurrentSize").GetComponent<Image>();
+        }
         //debugUI = GameObject.FindGameObjectWithTag("Debug").GetComponent<Text>();
         pitchSlider = GameObject.FindGameObjectWithTag("PitchSlider").GetComponent<Slider>();
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasGroup>();
@@ -204,7 +206,7 @@ public class controller : MonoBehaviour
         float maxSize = 0.5f;
         float minSize = 0.1f;
         float currentSize = Mathf.Lerp(minSize, maxSize, Mathf.InverseLerp(48, 0, currentPitch));
-        sizeUI.GetComponent<RectTransform>().localScale = new Vector3(currentSize, currentSize, 1f);
+        if(sizeUI != null)sizeUI.GetComponent<RectTransform>().localScale = new Vector3(currentSize, currentSize, 1f);
 
         pitchSlider.value = currentPitch;
     }
