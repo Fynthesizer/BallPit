@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.Android;
 using UnityEngine.EventSystems;
 
-[AddComponentMenu("Camera/Simple Smooth Mouse Look ")]
 public class controller : MonoBehaviour
 {
     public GameObject ballPrefab;
@@ -17,16 +16,10 @@ public class controller : MonoBehaviour
     Text debugUI;
     Slider pitchSlider;
     CanvasGroup canvas;
-    GameObject menu;
+    public GameObject menu;
     Light light;
 
-    private bool gyroEnabled;
-    private Gyroscope gyro;
-
     private bool initiation = true;
-
-    private GameObject cameraContainer;
-    private Quaternion rot;
 
     bool lockCamera = false;
 
@@ -42,19 +35,14 @@ public class controller : MonoBehaviour
 
     void Start()
     {
-        cameraContainer = new GameObject("Camera Container");
-        cameraContainer.transform.position = transform.position;
-        transform.SetParent(cameraContainer.transform);
         light = GameObject.FindGameObjectWithTag("MainLight").GetComponent<Light>();
         menu = GameObject.FindGameObjectWithTag("Menu");
         menu.SetActive(false);
 
-        gyroEnabled = EnableGyro();
-
         pitchUI = GameObject.FindGameObjectWithTag("CurrentPitch").GetComponent<Text>();
-        if (GameObject.FindGameObjectWithTag("CurrentSize")){
-            sizeUI = GameObject.FindGameObjectWithTag("CurrentSize").GetComponent<Image>();
-        }
+        //if (GameObject.FindGameObjectWithTag("CurrentSize") != null){
+        //    sizeUI = GameObject.FindGameObjectWithTag("CurrentSize").GetComponent<Image>();
+        //}
         //debugUI = GameObject.FindGameObjectWithTag("Debug").GetComponent<Text>();
         pitchSlider = GameObject.FindGameObjectWithTag("PitchSlider").GetComponent<Slider>();
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasGroup>();
@@ -65,21 +53,6 @@ public class controller : MonoBehaviour
 
         // Set target direction to the camera's initial orientation.
         targetDirection = transform.localRotation.eulerAngles;
-    }
-
-    private bool EnableGyro()
-    {
-        if (SystemInfo.supportsGyroscope)
-        {
-            gyro = Input.gyro;
-            gyro.enabled = true;
-
-            rot = new Quaternion(0, 0, 1, 0);
-            return true;
-        }
-
-        else return false;
-
     }
 
     void Update()
@@ -141,10 +114,9 @@ public class controller : MonoBehaviour
         {
             SpawnBall();
 
-            if (initiation)
+            if (GameObject.FindGameObjectWithTag("Help"))
             {
                 GameObject.FindGameObjectWithTag("Help").SetActive(false);
-                initiation = false;
             }
         }
 
@@ -167,6 +139,7 @@ public class controller : MonoBehaviour
 #endif
 
 #if UNITY_ANDROID
+        /*
         if (gyroEnabled)
         {
             //yRotation += -gyro.rotationRateUnbiased.y;
@@ -177,6 +150,7 @@ public class controller : MonoBehaviour
 
             //transform.eulerAngles = new Vector3(xRotation, yRotation, 0);
         }
+        */
 
         foreach (Touch touch in Input.touches)
         {
@@ -227,7 +201,7 @@ public class controller : MonoBehaviour
 
     public void UpdateSlider()
     {
-        currentPitch = Mathf.RoundToInt(pitchSlider.value);
+        //currentPitch = Mathf.RoundToInt(pitchSlider.value);
     }
 
     public void SpawnBall()
