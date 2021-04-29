@@ -23,11 +23,13 @@ public class ball : MonoBehaviour
     public string CollideEvent = "";
     FMOD.Studio.EventInstance collideInstance;
 
+    public GameObject noteSelector;
+
     // Start is called before the first frame update
     void Start()
     {
         SetPitch(pitch,timbre);
-        
+        noteSelector = GameObject.FindGameObjectWithTag("NoteSelector");
     }
 
     // Update is called once per frame
@@ -56,7 +58,7 @@ public class ball : MonoBehaviour
         collideInstance.start();
         collideInstance.release();
         amplitude = Mathf.Lerp(0, 1, Mathf.InverseLerp(0, 25, collision.impulse.magnitude));
-        print(collision.impulse.magnitude);
+        noteSelector.GetComponent<noteSelector>().HighlightNote(Mathf.RoundToInt(pitch),amplitude);
         
     }
 

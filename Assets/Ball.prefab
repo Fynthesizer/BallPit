@@ -241,12 +241,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.2450014
+      outSlope: 0.2450014
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.27916667
     - serializedVersion: 3
       time: 1
       value: 1
@@ -265,3 +265,4 @@ MonoBehaviour:
   amplitude: 0
   mat: {fileID: 0}
   CollideEvent: event:/Collision
+  noteSelector: {fileID: 0}

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Android;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
 
 public class controller : MonoBehaviour
 {
@@ -11,13 +12,26 @@ public class controller : MonoBehaviour
     public int currentTimbre = 0;
 
     public bool hideUI = false;
-    Text pitchUI;
+    public Text pitchUI;
     Image sizeUI;
     Text debugUI;
-    Slider pitchSlider;
-    CanvasGroup canvas;
+    public Slider pitchSlider;
+    public CanvasGroup canvas;
     public GameObject menu;
-    Light light;
+    public GameObject info;
+    public GameObject noteSelector;
+    public Light light;
+
+    public GameObject frontWall;
+    public GameObject backWall;
+    public GameObject leftWall;
+    public GameObject rightWall;
+    public GameObject ceiling;
+    public GameObject floor;
+
+    //public Vector3 roomScale = new Vector3(20,20,20);
+
+    public float roomSize = 25;
 
     private bool initiation = true;
 
@@ -35,18 +49,14 @@ public class controller : MonoBehaviour
 
     void Start()
     {
-        light = GameObject.FindGameObjectWithTag("MainLight").GetComponent<Light>();
-        menu = GameObject.FindGameObjectWithTag("Menu");
         menu.SetActive(false);
 
-        pitchUI = GameObject.FindGameObjectWithTag("CurrentPitch").GetComponent<Text>();
         //if (GameObject.FindGameObjectWithTag("CurrentSize") != null){
         //    sizeUI = GameObject.FindGameObjectWithTag("CurrentSize").GetComponent<Image>();
         //}
         //debugUI = GameObject.FindGameObjectWithTag("Debug").GetComponent<Text>();
-        pitchSlider = GameObject.FindGameObjectWithTag("PitchSlider").GetComponent<Slider>();
-        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasGroup>();
-        UpdateUI();
+        //UpdateUI();
+        SetRoom(roomSize);
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -102,33 +112,23 @@ public class controller : MonoBehaviour
         //Pitch control with scroll wheel and arrow keys
         if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currentPitch < 48) currentPitch++;
+            if (currentPitch < 48) SetPitch(currentPitch + 1);
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (currentPitch > 0) currentPitch--;
+            if (currentPitch > 0) SetPitch(currentPitch - 1);
         }
 
         //New ball with left click
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             SpawnBall();
-
-            if (GameObject.FindGameObjectWithTag("Help"))
-            {
-                GameObject.FindGameObjectWithTag("Help").SetActive(false);
-            }
         }
 
         //Reset with right click
         if (Input.GetMouseButtonDown(1))
         {
             Reset();
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            ToggleUI();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -158,12 +158,6 @@ public class controller : MonoBehaviour
             if (touch.phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(id))
             {
                 SpawnBall();
-
-                if (initiation)
-                {
-                    GameObject.FindGameObjectWithTag("Help").SetActive(false);
-                    initiation = false;
-                }
             }
         }
 #endif
@@ -182,26 +176,12 @@ public class controller : MonoBehaviour
         float currentSize = Mathf.Lerp(minSize, maxSize, Mathf.InverseLerp(48, 0, currentPitch));
         if(sizeUI != null)sizeUI.GetComponent<RectTransform>().localScale = new Vector3(currentSize, currentSize, 1f);
 
-        pitchSlider.value = currentPitch;
-    }
-
-    public void ToggleUI()
-    {
-        if (!hideUI)
-        {
-            canvas.alpha = 0f;
-            hideUI = true;
-        }
-        else
-        {
-            canvas.alpha = 1f;
-            hideUI = false;
-        }
+        //pitchSlider.value = currentPitch;
     }
 
     public void UpdateSlider()
     {
-        //currentPitch = Mathf.RoundToInt(pitchSlider.value);
+        currentPitch = Mathf.RoundToInt(pitchSlider.value);
     }
 
     public void SpawnBall()
@@ -209,6 +189,25 @@ public class controller : MonoBehaviour
         GameObject newBall = Instantiate(ballPrefab, transform.position + (transform.forward * 1), Quaternion.identity) as GameObject;
         newBall.GetComponent<ball>().SetPitch(currentPitch, currentTimbre);
         newBall.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+
+        if (info.activeSelf)
+        {
+            info.SetActive(false);
+        }
+
+        if (menu.activeSelf)
+        {
+            menu.SetActive(false);
+        }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void SetPitch(int p)
+    {
+        currentPitch = p;
+        noteSelector.GetComponent<noteSelector>().UpdateNote(p);
     }
 
     public void Reset()
@@ -247,6 +246,53 @@ public class controller : MonoBehaviour
         else Physics.gravity = Vector3.zero;
     }
 
+    public void SetWidth(float width)
+    {
+        //roomScale.x = width;
+        //UpdateRoom();
+    }
+
+    public void SetHeight(float height)
+    {
+        //roomScale.y = height;
+        //UpdateRoom();
+    }
+
+    public void SetLength(float length)
+    {
+        //roomScale.z = length;
+        //UpdateRoom();
+    }
+
+    public void SetRoom(float size)
+    {
+        //float w = roomScale.x;
+        //float h = roomScale.y;
+        //float l = roomScale.z;
+
+        roomSize = size;
+
+        float w = size;
+        float h = size;
+        float l = size;
+
+        leftWall.transform.position = new Vector3((w / 2) * -1, 10, 0);
+        rightWall.transform.position = new Vector3((w / 2), 10, 0);
+        ceiling.transform.position = new Vector3(0, 10 + (h / 2), 0);
+        floor.transform.position = new Vector3(0, 10 - (h / 2), 0);
+        frontWall.transform.position = new Vector3(0, 10, (l / 2));
+        backWall.transform.position = new Vector3(0, 10, (l / 2) * -1);
+
+        frontWall.transform.localScale = new Vector3(w / 10, 1, h / 10);
+        backWall.transform.localScale = new Vector3(w / 10, 1, h / 10);
+        ceiling.transform.localScale = new Vector3(w / 10, 1, l / 10);
+        floor.transform.localScale = new Vector3(w / 10, 1, l / 10);
+        leftWall.transform.localScale = new Vector3(l / 10, 1, h / 10);
+        rightWall.transform.localScale = new Vector3(l / 10, 1, h / 10);
+
+        light.transform.position = new Vector3(0,(10 + (h / 2))-1, 0);
+    }
+
     public void ToggleMenu()
     {
         if (menu.activeSelf)
@@ -254,14 +300,39 @@ public class controller : MonoBehaviour
             menu.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            lockCamera = false;
+            //lockCamera = false;
         }
         else
         {
             menu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            lockCamera = true;
+            //lockCamera = true;
         }
+        if (info.activeSelf)
+        {
+            menu.SetActive(false);
+        }
+    }
+
+    public void ToggleInfo()
+    {
+        if (info.activeSelf)
+        {
+            info.SetActive(false);
+        }
+        else
+        {
+            info.SetActive(true);
+        }
+        if (menu.activeSelf)
+        {
+            menu.SetActive(false);
+        }
+    }
+
+    public void SetUIOpacity(float opacity)
+    {
+        canvas.alpha = opacity;
     }
 }
