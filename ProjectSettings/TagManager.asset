@@ -14,6 +14,7 @@ TagManager:
   - Canvas
   - MainLight
   - Menu
+  - NoteSelector
   layers:
   - Default
   - TransparentFX

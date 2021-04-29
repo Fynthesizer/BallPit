@@ -9,6 +9,8 @@ public class noteSelector : MonoBehaviour
 
     GameObject selectedKey;
 
+    bool showHighlights = true;
+
     public GameObject[] keys;
     public GameObject[] underlayKeys;
 
@@ -44,6 +46,11 @@ public class noteSelector : MonoBehaviour
 
     public void HighlightNote(int note, float amp)
     {
-        underlayKeys[note].GetComponent<underlayKey>().Glow(amp);
+        if(showHighlights) underlayKeys[note].GetComponent<underlayKey>().Glow(amp);
+    }
+
+    public void ToggleHighlights(bool state)
+    {
+        showHighlights = state;
     }
 }

@@ -14,11 +14,11 @@ public class underlayKey : MonoBehaviour
     void Start()
     {
         img = gameObject.GetComponent<Image>();
-        color = new Color();
+        color = new Color(0,0,0,1);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (amplitude > 0) amplitude -= decayRate;
         else amplitude = 0;
@@ -30,6 +30,7 @@ public class underlayKey : MonoBehaviour
     {
         color = c;
         img.color = c;
+
     }
 
     public void Glow(float amp)

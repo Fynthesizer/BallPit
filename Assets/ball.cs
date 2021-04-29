@@ -79,7 +79,6 @@ public class ball : MonoBehaviour
         size = Mathf.Pow(2.5f/Mathf.Pow(freq/72.6f,2f), 1f / 3f);
         float vol = (4 / 3) * Mathf.PI * Mathf.Pow((size / 2), 3);
         rb.mass = ((vol * density)+1)/2;
-        print(size);
         //print(rb.mass);
         //rb.mass = 1;
 

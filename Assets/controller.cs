@@ -154,10 +154,12 @@ public class controller : MonoBehaviour
 
         foreach (Touch touch in Input.touches)
         {
-            int id = touch.fingerId;
-            if (touch.phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(id))
             {
-                SpawnBall();
+                int id = touch.fingerId;
+                if (touch.phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    SpawnBall();
+                }
             }
         }
 #endif
@@ -192,16 +194,20 @@ public class controller : MonoBehaviour
 
         if (info.activeSelf)
         {
-            info.SetActive(false);
+            ToggleInfo();
         }
 
         if (menu.activeSelf)
         {
-            menu.SetActive(false);
+            ToggleMenu();
         }
+
+#if UNITY_STANDALONE || UNITY_EDITOR
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+#endif
     }
 
     public void SetPitch(int p)
@@ -298,20 +304,25 @@ public class controller : MonoBehaviour
         if (menu.activeSelf)
         {
             menu.SetActive(false);
+#if UNITY_STANDALONE || UNITY_EDITOR
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            //lockCamera = false;
+            lockCamera = false;
+#endif
+
         }
         else
         {
             menu.SetActive(true);
+#if UNITY_STANDALONE || UNITY_EDITOR
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            //lockCamera = true;
-        }
-        if (info.activeSelf)
-        {
-            menu.SetActive(false);
+            lockCamera = true;
+#endif
+            if (info.activeSelf)
+            {
+                info.SetActive(false);
+            }
         }
     }
 
@@ -324,10 +335,10 @@ public class controller : MonoBehaviour
         else
         {
             info.SetActive(true);
-        }
-        if (menu.activeSelf)
-        {
-            menu.SetActive(false);
+            if (menu.activeSelf)
+            {
+                ToggleMenu();
+            }
         }
     }
 
