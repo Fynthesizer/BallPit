@@ -125,6 +125,7 @@ public class ball : MonoBehaviour
 
     public void PlaySound(float p, float t, float r, float m)
     {
+        /*
         collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
         collideInstance.setParameterByName("Pitch", p);
@@ -133,5 +134,8 @@ public class ball : MonoBehaviour
         collideInstance.setParameterByName("Magnitude", m);
         collideInstance.start();
         collideInstance.release();
+        */
+
+        gameObject.GetComponent<AudioSource>().Play();
     }
 }
