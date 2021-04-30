@@ -7,6 +7,9 @@
 		<property name="name">
 			<value>Reverb</value>
 		</property>
+		<relationship name="automators">
+			<destination>{b8ea4a72-ac65-47e4-aaf8-59e64edc2217}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{6f34afdb-421b-4030-9431-53db3f81ad1e}</destination>
 		</relationship>
@@ -17,16 +20,34 @@
 			<destination>{16c33d77-776d-4007-954a-3f250a319dd7}</destination>
 		</relationship>
 	</object>
+	<object class="Automator" id="{b8ea4a72-ac65-47e4-aaf8-59e64edc2217}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>volume</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{6a71745f-9e76-4739-800d-3b0677d3cc4e}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{6f34afdb-421b-4030-9431-53db3f81ad1e}">
 		<relationship name="effects">
-			<destination>{f4fd3bac-4d39-422b-bcbe-f36980e5ba33}</destination>
+			<destination>{6a6fe96f-1baa-4a17-8584-5151892c79c6}</destination>
 			<destination>{18857d86-4dfe-4e46-acbc-91ff838de90f}</destination>
+			<destination>{08e2e1ad-ce1c-4637-8e0b-9693232a08c5}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{51ae7aa5-a338-4f48-a992-37730d2db624}" />
-	<object class="SFXReverbEffect" id="{f4fd3bac-4d39-422b-bcbe-f36980e5ba33}">
+	<object class="AutomationCurve" id="{6a71745f-9e76-4739-800d-3b0677d3cc4e}">
+		<relationship name="parameter">
+			<destination>{928595bb-fa53-48b0-bfc0-400d39645c2e}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{253ae746-1ccf-4eb7-b6d0-44f044ae63d9}</destination>
+			<destination>{5a0d9409-0475-4bcc-b02d-599063955bf6}</destination>
+		</relationship>
+	</object>
+	<object class="SFXReverbEffect" id="{6a6fe96f-1baa-4a17-8584-5151892c79c6}">
 		<property name="decayTime">
-			<value>2600</value>
+			<value>2700</value>
 		</property>
 		<property name="wetLevel">
 			<value>0</value>
@@ -36,4 +57,59 @@
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{18857d86-4dfe-4e46-acbc-91ff838de90f}" />
+	<object class="PluginEffect" id="{08e2e1ad-ce1c-4637-8e0b-9693232a08c5}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
+		<relationship name="plugin">
+			<destination>{47346e12-5677-45b2-87b9-d2ee604844ae}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationPoint" id="{253ae746-1ccf-4eb7-b6d0-44f044ae63d9}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>-80</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{5a0d9409-0475-4bcc-b02d-599063955bf6}">
+		<property name="position">
+			<value>1</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="Plugin" id="{47346e12-5677-45b2-87b9-d2ee604844ae}">
+		<property name="identifier">
+			<value>Steam Audio Reverb</value>
+		</property>
+		<relationship name="pluginParameters">
+			<destination>{5ff7ac3d-2be8-4594-84d3-d3a336ea87af}</destination>
+			<destination>{6ac63939-aa54-45d9-9fed-9bb13e98f49e}</destination>
+		</relationship>
+	</object>
+	<object class="BoolPluginParameter" id="{5ff7ac3d-2be8-4594-84d3-d3a336ea87af}">
+		<property name="name">
+			<value>IndirBinaural</value>
+		</property>
+		<property name="value">
+			<value>true</value>
+		</property>
+	</object>
+	<object class="IntPluginParameter" id="{6ac63939-aa54-45d9-9fed-9bb13e98f49e}">
+		<property name="name">
+			<value>IndirType</value>
+		</property>
+		<property name="value">
+			<value>1</value>
+		</property>
+		<property name="minimumValue">
+			<value>0</value>
+		</property>
+		<property name="maximumValue">
+			<value>1</value>
+		</property>
+	</object>
 </objects>

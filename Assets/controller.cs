@@ -69,7 +69,7 @@ public class controller : MonoBehaviour
 
     void Update()
     {
-        UpdateUI();
+        //UpdateUI();
 
         // Ensure the cursor is always locked when set
         if (lockCursor)
@@ -191,7 +191,10 @@ public class controller : MonoBehaviour
     public void SpawnBall()
     {
         GameObject newBall = Instantiate(ballPrefab, transform.position + (transform.forward * 1), Quaternion.identity) as GameObject;
-        newBall.GetComponent<ball>().SetPitch(currentPitch, currentTimbre);
+        newBall.GetComponent<ball>().Setup(currentPitch, currentTimbre);
+        //newBall.GetComponent<ball>().pitch = currentPitch;
+        //newBall.GetComponent<ball>().timbre = currentTimbre;
+
         newBall.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
 
         if (info.activeSelf)
@@ -347,5 +350,10 @@ public class controller : MonoBehaviour
     public void SetUIOpacity(float opacity)
     {
         canvas.alpha = opacity;
+    }
+
+    public void SetReverb(float amount)
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("ReverbAmount", amount);
     }
 }

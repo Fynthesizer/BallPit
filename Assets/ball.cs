@@ -5,6 +5,8 @@ using UnityEngine.Animations;
 
 public class ball : MonoBehaviour
 {
+    public bool init = false;
+
     public AnimationCurve falloff;
 
     public float lightMultiplier = 50;
@@ -25,8 +27,12 @@ public class ball : MonoBehaviour
     public string CollideEvent = "";
     FMOD.Studio.EventInstance collideInstance;
 
+    FMODUnity.StudioEventEmitter emitter;
+
     [FMODUnity.BankRef]
     public string bankRef;
+
+    SteamAudio.SteamAudioSource sac;
 
     public GameObject noteSelector;
 
@@ -34,18 +40,22 @@ public class ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FMODUnity.RuntimeManager.LoadBank(bankRef, true);
+        //sac = gameObject.AddComponent<SteamAudio.SteamAudioSource>();
+        //sac.uniqueIdentifier = gameObject.name;
+        //FMODUnity.RuntimeManager.LoadBank(bankRef, true);
         //collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
         //FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
-
-        SetPitch(pitch,timbre);
-        noteSelector = GameObject.FindGameObjectWithTag("NoteSelector");
+        //sac = gameObject.GetComponent<SteamAudio.SteamAudioSource>();
+        //sac.uniqueIdentifier = gameObject.name;
+        //emitter = gameObject.GetComponent<FMODUnity.StudioEventEmitter>();
+        //SetPitch(pitch,timbre);
+        //noteSelector = GameObject.FindGameObjectWithTag("NoteSelector");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float decayRate = 0.025f / size;
+        float decayRate = 0.02f / size;
         if (amplitude > 0) amplitude -= decayRate;
         else amplitude = 0;
         light.intensity = falloff.Evaluate(amplitude) * lightMultiplier;
@@ -56,15 +66,17 @@ public class ball : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-        collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        collideInstance.setParameterByName("Pitch", Mathf.Lerp(0, 48, Mathf.InverseLerp(0, 48, pitch)));
-        collideInstance.setParameterByName("Timbre", timbre);
-        collideInstance.setParameterByName("Radius", size / 2);
+        //collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
+        //FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        //collideInstance.setParameterByName("Pitch", Mathf.Lerp(0, 48, Mathf.InverseLerp(0, 48, pitch)));
+        //collideInstance.setParameterByName("Timbre", timbre);
+        //collideInstance.setParameterByName("Radius", size / 2);
         //collideInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
-        collideInstance.setParameterByName("Magnitude", collision.impulse.magnitude);
-        collideInstance.start();
-        collideInstance.release();
+        //collideInstance.setParameterByName("Magnitude", collision.impulse.magnitude);
+        //collideInstance.start();
+        //collideInstance.release();
+
+        PlaySound(pitch, timbre, size / 2, collision.impulse.magnitude);
         //collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
         //FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
 
@@ -73,12 +85,17 @@ public class ball : MonoBehaviour
         
     }
 
-    public void SetPitch(float p, int t)
+    public void Setup(float p, int t)
     {
+        sac = gameObject.GetComponent<SteamAudio.SteamAudioSource>();
+        sac.uniqueIdentifier = gameObject.name;
+        emitter = gameObject.GetComponent<FMODUnity.StudioEventEmitter>();
         rb = gameObject.GetComponent<Rigidbody>();
+        noteSelector = GameObject.FindGameObjectWithTag("NoteSelector");
+
         pitch = p;
         timbre = t;
-        
+
         float hue = 0;
         if (pitch < 12) hue = Mathf.Lerp(0, 1, Mathf.InverseLerp(0, 12, pitch));
         else if (pitch < 24) hue = Mathf.Lerp(0, 1, Mathf.InverseLerp(12, 24, pitch));
@@ -95,11 +112,26 @@ public class ball : MonoBehaviour
 
         //size = 1f / (pitch / 12);
         transform.localScale = new Vector3(size, size, size);
+
         mat = gameObject.GetComponent<Renderer>().material;
         mat.SetColor("_Color", color);
         mat.SetFloat("Intensity", 0);
         light = transform.GetChild(0).GetComponent<Light>();
         //light.range = size * 25;
         light.color = color;
+
+        
+    }
+
+    public void PlaySound(float p, float t, float r, float m)
+    {
+        collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        collideInstance.setParameterByName("Pitch", p);
+        collideInstance.setParameterByName("Timbre", t);
+        collideInstance.setParameterByName("Radius", r);
+        collideInstance.setParameterByName("Magnitude", m);
+        collideInstance.start();
+        collideInstance.release();
     }
 }

@@ -50,7 +50,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: 128
     m_CustomResolution: -1
     m_Strength: 1
@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 4976764520492695272}
   - component: {fileID: 4976764520492695273}
   - component: {fileID: 4976764520492695255}
+  - component: {fileID: -5661575415186094345}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -235,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6726dae9b68ce438b23339b89ebce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  init: 0
   falloff:
     serializedVersion: 2
     m_Curve:
@@ -268,3 +270,47 @@ MonoBehaviour:
   CollideEvent: event:/Collision
   bankRef: Ball
   noteSelector: {fileID: 0}
+--- !u!114 &-5661575415186094345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4976764520492695278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc64aca77a4bc84f9a15ccd92d26878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directBinaural: 1
+  interpolation: 0
+  physicsBasedAttenuation: 0
+  airAbsorption: 0
+  dipoleWeight: 0
+  dipolePower: 0
+  occlusionMode: 0
+  occlusionMethod: 0
+  sourceRadius: 1
+  occlusionSamples: 16
+  directMixLevel: 1
+  reflections: 0
+  indirectBinaural: 0
+  physicsBasedAttenuationForIndirect: 1
+  indirectMixLevel: 1
+  simulationType: 0
+  uniqueIdentifier: 
+  avoidSilenceDuringInit: 0
+  overrideHRTFIndex: 0
+  hrtfIndex: 0
+  bakingRadius: 16
+  useAllProbeBoxes: 1
+  probeBoxes:
+  - {fileID: 0}
+  bakedProbeNames: []
+  bakedProbeDataSizes: 
+  bakedDataSize: 0
+  bakedStatsFoldout: 1
+  bakeToggle: 0
+  bakedDataIdentifier:
+    identifier: 0
+    type: 0
