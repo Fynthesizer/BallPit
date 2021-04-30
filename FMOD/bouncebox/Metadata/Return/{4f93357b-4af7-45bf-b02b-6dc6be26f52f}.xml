@@ -28,6 +28,12 @@
 		<property name="decayTime">
 			<value>2600</value>
 		</property>
+		<property name="wetLevel">
+			<value>0</value>
+		</property>
+		<property name="dryLevel">
+			<value>-80</value>
+		</property>
 	</object>
 	<object class="MixerBusFader" id="{18857d86-4dfe-4e46-acbc-91ff838de90f}" />
 </objects>

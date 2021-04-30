@@ -63,6 +63,8 @@ public class controller : MonoBehaviour
 
         // Set target direction to the camera's initial orientation.
         targetDirection = transform.localRotation.eulerAngles;
+
+        
     }
 
     void Update()

@@ -7,6 +7,8 @@ public class ball : MonoBehaviour
 {
     public AnimationCurve falloff;
 
+    public float lightMultiplier = 50;
+
     public float pitch = 10;
     public float density = 2f;
     public int timbre = 0;
@@ -23,11 +25,19 @@ public class ball : MonoBehaviour
     public string CollideEvent = "";
     FMOD.Studio.EventInstance collideInstance;
 
+    [FMODUnity.BankRef]
+    public string bankRef;
+
     public GameObject noteSelector;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        FMODUnity.RuntimeManager.LoadBank(bankRef, true);
+        //collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
+        //FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
+
         SetPitch(pitch,timbre);
         noteSelector = GameObject.FindGameObjectWithTag("NoteSelector");
     }
@@ -38,8 +48,8 @@ public class ball : MonoBehaviour
         float decayRate = 0.025f / size;
         if (amplitude > 0) amplitude -= decayRate;
         else amplitude = 0;
-        light.intensity = falloff.Evaluate(amplitude) * 25;
-        light.range = falloff.Evaluate(amplitude) * 100 * size;
+        light.intensity = falloff.Evaluate(amplitude) * lightMultiplier;
+        light.range = falloff.Evaluate(amplitude) * lightMultiplier * size;
         mat.SetFloat("Intensity", falloff.Evaluate(amplitude) * 25);
     }
 
@@ -51,12 +61,13 @@ public class ball : MonoBehaviour
         collideInstance.setParameterByName("Pitch", Mathf.Lerp(0, 48, Mathf.InverseLerp(0, 48, pitch)));
         collideInstance.setParameterByName("Timbre", timbre);
         collideInstance.setParameterByName("Radius", size / 2);
-        //collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
         //collideInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
-        //FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
         collideInstance.setParameterByName("Magnitude", collision.impulse.magnitude);
         collideInstance.start();
         collideInstance.release();
+        //collideInstance = FMODUnity.RuntimeManager.CreateInstance(CollideEvent);
+        //FMODUnity.RuntimeManager.AttachInstanceToGameObject(collideInstance, GetComponent<Transform>(), GetComponent<Rigidbody>());
+
         amplitude = Mathf.Lerp(0, 1, Mathf.InverseLerp(0, 25, collision.impulse.magnitude));
         noteSelector.GetComponent<noteSelector>().HighlightNote(Mathf.RoundToInt(pitch),amplitude);
         

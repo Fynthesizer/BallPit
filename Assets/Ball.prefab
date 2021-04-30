@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 1
+  m_AdditionalLightsShadowResolutionTier: -1
 --- !u!1 &4976764520492695278
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,10 +259,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  lightMultiplier: 75
   pitch: 10
   density: 2
   timbre: 5
   amplitude: 0
   mat: {fileID: 0}
   CollideEvent: event:/Collision
+  bankRef: Ball
   noteSelector: {fileID: 0}

@@ -20,6 +20,7 @@
 	<object class="MixerBusEffectChain" id="{0beb740f-5384-4111-a37e-c0c4ce0685aa}">
 		<relationship name="effects">
 			<destination>{ef6a72ec-dbff-4eef-a9e7-0caf0b0637dc}</destination>
+			<destination>{c5b38d18-8efe-481d-841e-d20c4acae065}</destination>
 			<destination>{59c90c3a-c250-4c79-b60b-e5d5a0c45816}</destination>
 		</relationship>
 	</object>
@@ -29,8 +30,16 @@
 		</property>
 	</object>
 	<object class="PluginEffect" id="{ef6a72ec-dbff-4eef-a9e7-0caf0b0637dc}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
 		<relationship name="plugin">
 			<destination>{fd9bc041-e91e-4798-94c9-7442fe8643d8}</destination>
+		</relationship>
+	</object>
+	<object class="PluginEffect" id="{c5b38d18-8efe-481d-841e-d20c4acae065}">
+		<relationship name="plugin">
+			<destination>{d3634986-a44d-4ad0-8dd1-f69e49f537b0}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{59c90c3a-c250-4c79-b60b-e5d5a0c45816}" />
@@ -57,6 +66,15 @@
 			<destination>{5f972ca3-f5f3-4c55-8668-cb5c19ee5822}</destination>
 			<destination>{a27222f4-ac3f-42b6-8dc0-070c14ea79b7}</destination>
 			<destination>{7f123fcc-2d52-432d-81bb-4a51ea2821ee}</destination>
+		</relationship>
+	</object>
+	<object class="Plugin" id="{d3634986-a44d-4ad0-8dd1-f69e49f537b0}">
+		<property name="identifier">
+			<value>Resonance Audio Listener</value>
+		</property>
+		<relationship name="pluginParameters">
+			<destination>{b8145731-ef6d-404a-b23d-0b9c81d8a633}</destination>
+			<destination>{ecd1ae8e-85be-48ca-945e-2be53d892c5d}</destination>
 		</relationship>
 	</object>
 	<object class="BoolPluginParameter" id="{e752fd8c-1a3c-422a-aa0c-0936dec1694f}">
@@ -198,7 +216,7 @@
 			<value>Range Min</value>
 		</property>
 		<property name="value">
-			<value>0.25</value>
+			<value>1</value>
 		</property>
 		<property name="curve">
 			<value>{(0.000000,0.000000)(1.000000,5.000000)(2.000000,10.000000)(3.000000,100.000000)(4.000000,1000.000000)(5.000000,10000.000000)}</value>
@@ -209,7 +227,7 @@
 			<value>Range Max</value>
 		</property>
 		<property name="value">
-			<value>100</value>
+			<value>50</value>
 		</property>
 		<property name="curve">
 			<value>{(0.000000,0.000000)(1.000000,5.000000)(2.000000,10.000000)(3.000000,100.000000)(4.000000,1000.000000)(5.000000,10000.000000)}</value>
@@ -228,7 +246,7 @@
 			<value>Wet Level</value>
 		</property>
 		<property name="value">
-			<value>10</value>
+			<value>0</value>
 		</property>
 		<property name="curve">
 			<value>{(0.000000,-60.000000)(1.000000,-40.000000)(2.000000,-20.000000)(3.000000,-12.000000)(4.000000,-6.000000)(5.000000,-2.000000)(6.000000,0.000000)(7.000000,2.000000)(8.000000,6.000000)(9.000000,12.000000)(10.000000,20.000000)}</value>
@@ -246,6 +264,26 @@
 		</property>
 		<property name="maximumValue">
 			<value>1024</value>
+		</property>
+	</object>
+	<object class="FloatPluginParameter" id="{b8145731-ef6d-404a-b23d-0b9c81d8a633}">
+		<property name="name">
+			<value>Gain</value>
+		</property>
+		<property name="value">
+			<value>-9.99999975e-06</value>
+		</property>
+		<property name="curve">
+			<value>{(0.000000,-80.000000)(1.000000,0.000000)}</value>
+		</property>
+	</object>
+	<object class="DataPluginParameter" id="{ecd1ae8e-85be-48ca-945e-2be53d892c5d}">
+		<property name="name">
+			<value>Room Properties</value>
+		</property>
+		<property name="value" />
+		<property name="dataType">
+			<value>0</value>
 		</property>
 	</object>
 </objects>

@@ -53,6 +53,7 @@ MonoBehaviour:
     Plugins:
       Value:
       - OculusSpatializerFMOD
+      - resonanceaudio
       HasValue: 1
     StaticPlugins:
       Value:
