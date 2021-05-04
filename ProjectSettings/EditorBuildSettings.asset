@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BounceBox.unity
+    path: Assets/Scenes/basic.unity
     guid: 0b675e607cade79468b2ea22911682b2
+  - enabled: 0
+    path: Assets/Scenes/columns.unity
+    guid: dce141aafba9be84aa3388f940af7668
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 0f72ac8969c6e9541865a5c546f9e0e7, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cbf4c338b62ca9c48ac39b6534e1a290, type: 2}

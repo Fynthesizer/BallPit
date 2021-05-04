@@ -61,6 +61,9 @@
 		<property name="bypass">
 			<value>true</value>
 		</property>
+		<relationship name="excludedPlatforms">
+			<destination>{967a4ab2-6a64-4b52-8978-25b9b8f081af}</destination>
+		</relationship>
 		<relationship name="plugin">
 			<destination>{47346e12-5677-45b2-87b9-d2ee604844ae}</destination>
 		</relationship>

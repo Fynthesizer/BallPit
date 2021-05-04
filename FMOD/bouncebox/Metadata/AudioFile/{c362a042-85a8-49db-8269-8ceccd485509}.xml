@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{c362a042-85a8-49db-8269-8ceccd485509}">
+		<property name="assetPath">
+			<value>harp_a2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>2</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d3bb963d-188b-4689-b2db-4428c61728e2}</destination>
+		</relationship>
+	</object>
+</objects>

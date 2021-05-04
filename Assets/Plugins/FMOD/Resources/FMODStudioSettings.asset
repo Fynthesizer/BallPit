@@ -55,8 +55,7 @@ MonoBehaviour:
       - phonon_fmod
       HasValue: 1
     StaticPlugins:
-      Value:
-      - OculusSpatializerFMOD
+      Value: []
       HasValue: 1
     CallbackHandler:
       Value: {fileID: 0}
@@ -152,7 +151,7 @@ MonoBehaviour:
       Value: 9264
       HasValue: 1
     Overlay:
-      Value: 1
+      Value: 0
       HasValue: 1
     Logging:
       Value: 0
@@ -731,10 +730,10 @@ MonoBehaviour:
       HasValue: 0
     Plugins:
       Value: []
-      HasValue: 0
+      HasValue: 1
     StaticPlugins:
       Value: []
-      HasValue: 0
+      HasValue: 1
     CallbackHandler:
       Value: {fileID: 0}
       HasValue: 0
